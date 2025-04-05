@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>By Safa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="background"></div>
+    <div class="container">
+        <h1>Flask MongoDB Form</h1>
+        <form action="/submit" method="post">
+            <input type="text" name="name" placeholder="Enter your name" required><br>
+            <input type="email" name="email" placeholder="Enter your email" required><br>
+            <button type="submit">Submit</button>
+        </form>
+        <h2>Submitted Data</h2>
+        <ul id="data-list"></ul>
+    </div>
+    <script>
+        fetch("/get_data").then(response => response.json()).then(data => {
+            const list = document.getElementById("data-list");
+            data.forEach(entry => {
+                const item = document.createElement("li");
+                item.textContent = `Name: ${entry.name}, Email: ${entry.email}`;
+                list.appendChild(item);
+            });
+        });
+    </script>
+</body>
+</html>
